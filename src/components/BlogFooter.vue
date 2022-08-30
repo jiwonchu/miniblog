@@ -9,11 +9,10 @@
 
 <script>
 export default {
-setup(){
+setup(props,context){
 const clearAllMemo = ()=>{
-  //localStorage에서 내용 전체 삭제
-  //추후 DB 연동예정
-  localStorage.clear();
+  
+  context.emit('deleteitem');
 }
   return{
 clearAllMemo
