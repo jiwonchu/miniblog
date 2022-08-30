@@ -35,6 +35,8 @@
   import {
     ref
   } from 'vue';
+  import { useStore } from 'vuex';
+
 
   import ModalVue from '@/components/common/ModalVue.vue';
 
@@ -43,7 +45,8 @@
       ModalVue,
 
     },
-    setup(props, context) {
+    setup() {
+      const store = useStore();
       const newItem = ref('');
       const newIcon = ref(0);
       const showModal = ref(false);
@@ -68,7 +71,8 @@
           // key들에 대한 정의..?
           // id = key
 
-          context.emit('additem', temp, icon);
+          // context.emit('additem', temp, icon);
+          store.commit('ADD_MEMO',{item:temp,index:icon});
           resetItem();
         } else {
           showModal.value = true;
