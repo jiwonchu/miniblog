@@ -35,12 +35,12 @@ const timeUtil = {
   getCurrentDate() {
     let date = new Date();
     return date.getFullYear().toString() + this.addZero(date.getMonth() + 1) + this.addZero(date.getDate()) +
-    this.addZero(date.getHours()) + this.addZero(date.getMinutes()) + this.addZero(date.getSeconds());
+      this.addZero(date.getHours()) + this.addZero(date.getMinutes()) + this.addZero(date.getSeconds());
   },
   getCurrentTime() {
     let date = new Date();
     return date.getFullYear().toString() + '/' + this.addZero(date.getMonth() + 1) + '/' + this.addZero(date.getDate()) + '/' +
-    this.addZero(date.getHours()) + ':' + this.addZero(date.getMinutes());
+      this.addZero(date.getHours()) + ':' + this.addZero(date.getMinutes());
   }
 }
 
@@ -52,7 +52,49 @@ export default createStore({
     iconArr: ['play1.png', 'play2.png', 'rocket.gif']
   },
 
-  actions: {},
+  //외부데이터 연동
+  actions: {
+    fetchAddMemo(context, obj) {
+      //서버에 주소로 접근하여서 자료를 push한다.
+      // push하고나서 정상적으로 추가되었다면
+      // 아래의 명령을 실행한다.
+      context.commit("ADD_MEMO", {
+        item: obj.item,
+        index: obj.index
+      });
+    },
+    fetchDeleteMemo({
+      commit
+    }, obj) {
+      //서버에 주소로 접근해서 데이터를 지운다.
+      //DELETE가 성공했다면
+      //아래를 실행한다.
+      commit("DELETE_MEMO", {
+        item: obj.item,
+        index: obj.index
+      });
+    },
+    fetchUpdateMemo({
+      commit
+    }, obj) {
+      //서버의 주소로 접근해서 FETCH한다.
+      //정상적으로 처리되었다면 
+      //아래를 실행한다.
+      commit("UPDATE_MEMO", {
+        item: obj.item,
+        index: obj.index
+      });
+    },
+    fetchClearMemo({
+      commit
+    }) {
+      //서버의 주소로 접근해서 DELETE한다
+      //정상적으로 처리되었다면
+      //아래를 실행한다.
+      commit("CLEAR_MEMO");
+    },
+
+  },
 
   mutations: {
     // 아이템 추가 {item, index}
@@ -114,5 +156,10 @@ export default createStore({
       state.memoItemArr.splice(0);
     }
   },
-  getters: {}
+  getters: {
+    getMemoArr(state) {
+      //조건에 따라서 다른 결과물을 돌려준다.
+      return state.memoItemArr;
+    }
+  }
 });

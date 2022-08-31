@@ -72,7 +72,8 @@
           // id = key
 
           // context.emit('additem', temp, icon);
-          store.commit('ADD_MEMO',{item:temp,index:icon});
+          // store.commit('ADD_MEMO',{item:temp,index:icon});
+          store.dispatch('fetchAddMemo',{item:temp,index:icon});
           resetItem();
         } else {
           showModal.value = true;

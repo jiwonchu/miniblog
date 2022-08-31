@@ -15,7 +15,8 @@ setup(){
 const clearAllMemo = ()=>{
   
   // context.emit('deleteitem');
-  store.commit('CLEAR_MEMO');
+  // store.commit('CLEAR_MEMO');
+  store.dispatch('fetchClearMemo')
 }
   return{
 clearAllMemo
